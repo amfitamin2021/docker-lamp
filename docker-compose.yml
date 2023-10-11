@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+
+  php:
+    build:
+      context: php
+    ports:
+      - 8000:80
+    volumes:
+      - ./php:/var/www/html
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.4
+    ports:
+     - 8090:80
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    restart: always
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
